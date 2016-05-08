@@ -16,9 +16,10 @@
 
 package org.multiarraymap;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by Yannick on 5/4/2016.
@@ -26,15 +27,79 @@ import java.util.Map;
 public class MultiArrayMapTest {
 
     @Test
-    public void init() throws Exception {
+    public void addItemTest() throws Exception {
         MultiArrayMap<Integer, String> map = new MultiArrayMap<Integer, String>();
         map.put(10, "10");
         map.put(20, "20");
         map.put(30, "30");
         map.put(40, "40");
 
-
-        System.out.println(map);
+        Assert.assertTrue("The map doesn't contains all the value !", map.size() == 4);
+        System.out.println("addItemTest() = " + map);
     }
 
+    @Test
+    public void addItemWithSameKeyTest() throws Exception {
+        MultiArrayMap<Integer, String> map = new MultiArrayMap<Integer, String>();
+        map.put(10, "10");
+        map.put(10, "10.1");
+        map.put(10, "10.2");
+        map.put(10, "10.3");
+        map.put(10, "10.4");
+        map.put(20, "20");
+        map.put(30, "30");
+        map.put(40, "40");
+        map.put(40, "40.1");
+        map.put(40, "40.2");
+
+        List<String> valuesTen = map.get(10);
+        List<String> valuesFourty = map.get(40);
+
+        Assert.assertTrue("The map doesn't contains all the value !", map.size() == 4);
+        Assert.assertTrue("The map doesn't contains all the value for the key (10) !", valuesTen.size() == 5);
+        Assert.assertTrue("The map doesn't contains all the value for the key (40) !", valuesFourty.size() == 3);
+        System.out.println("addItemWithSameKeyTest() = " + map);
+    }
+
+
+    @Test
+    public void mergeTest() throws Exception {
+        MultiArrayMap<Integer, String> map = new MultiArrayMap<Integer, String>();
+        map.put(10, "10");
+        map.put(20, "20");
+        map.put(30, "30");
+        map.put(40, "40");
+
+        MultiArrayMap<Integer, String> map2 = new MultiArrayMap<Integer, String>();
+        map2.put(50, "50");
+        map2.put(60, "60");
+        map2.put(70, "70");
+        map2.put(80, "80");
+
+        map.putAll(map2);
+
+        Assert.assertTrue("The map doesn't contains the newer values !", map.size() == 8);
+        System.out.println("mergeTest() = " + map);
+    }
+
+    @Test
+    public void removeItemTest() throws Exception {
+        MultiArrayMap<Integer, String> map = new MultiArrayMap<Integer, String>();
+        map.put(10, "10");
+        map.put(10, "10.1");
+        map.put(10, "10.2");
+        map.put(10, "10.3");
+        map.put(10, "10.4");
+        map.put(20, "20");
+        map.put(30, "30");
+        map.put(40, "40");
+        map.put(40, "40.1");
+        map.put(40, "40.2");
+
+        map.remove(10);
+        map.remove(40);
+
+        Assert.assertTrue("The map doesn't contains all the value !", map.size() == 2);
+        System.out.println("removeItemTest() = " + map);
+    }
 }

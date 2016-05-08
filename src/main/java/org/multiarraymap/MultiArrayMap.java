@@ -109,14 +109,24 @@ public class MultiArrayMap<K, V> {
     }
 
     public void clear() {
+        containerMap.clear();
     }
 
     public Set<K> keySet() {
-        return null;
+        return containerMap.keySet();
     }
 
+    /**
+     * @return An unmodifiable Set containing all the values
+     */
     public Collection<V> values() {
-        return null;
+        Set<V> values = new HashSet<V>();
+
+        for (List<V> value : containerMap.values()) {
+            values.addAll(value);
+        }
+
+        return Collections.unmodifiableSet(values);
     }
 
     public Set<Map.Entry<K, List<V>>> entrySet() {
