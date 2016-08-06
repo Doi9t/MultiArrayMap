@@ -102,4 +102,12 @@ public class MultiArrayMapTest {
         Assert.assertTrue("The map doesn't contains all the value !", map.size() == 2);
         System.out.println("removeItemTest() = " + map);
     }
+
+    @Test
+    public void valueNotPresentTest() throws Exception {
+        MultiArrayMap<Integer, String> map = new MultiArrayMap<Integer, String>();
+        map.put(10, "10");
+
+        Assert.assertTrue("The map doesn't contains the newer values !", map.get(20) == null);
+    }
 }
