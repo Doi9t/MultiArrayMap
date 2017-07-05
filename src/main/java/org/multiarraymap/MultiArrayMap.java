@@ -34,10 +34,6 @@ public class MultiArrayMap<K, V> {
         return containerMap.size();
     }
 
-    public boolean isEmpty() {
-        return containerMap.isEmpty();
-    }
-
     public boolean containsKey(Object key) {
         return containerMap.containsKey(key);
     }
@@ -97,6 +93,21 @@ public class MultiArrayMap<K, V> {
     }
 
     /**
+     * @param key   - The key of the values
+     * @param value - The value to be removed
+     * @return
+     */
+    public List<V> removeFromList(K key, V value) {
+        List<V> values = containerMap.get(key);
+
+        if (values != null && !values.isEmpty()) {
+            values.remove(value);
+        }
+
+        return values;
+    }
+
+    /**
      * @param m - The map to be merged with the current
      */
     public void putAll(MultiArrayMap<? extends K, ? extends V> m) {
@@ -107,6 +118,14 @@ public class MultiArrayMap<K, V> {
         for (Map.Entry<? extends K, ? extends List<? extends V>> entry : m.entrySet()) {
             getAssociation(entry.getKey()).addAll(entry.getValue());
         }
+    }
+
+    public boolean isEmpty() {
+        return containerMap.isEmpty();
+    }
+
+    public Set<Map.Entry<K, List<V>>> entrySet() {
+        return containerMap.entrySet();
     }
 
     public void clear() {
@@ -128,10 +147,6 @@ public class MultiArrayMap<K, V> {
         }
 
         return Collections.unmodifiableSet(values);
-    }
-
-    public Set<Map.Entry<K, List<V>>> entrySet() {
-        return containerMap.entrySet();
     }
 
     @Override

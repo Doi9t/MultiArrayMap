@@ -17,18 +17,40 @@
 package org.multiarraymap;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by Yannick on 5/4/2016.
  */
 public class MultiArrayMapTest {
 
+    private MultiArrayMap<Integer, String> map;
+
+    @Before
+    public void setUp() throws Exception {
+        map = new MultiArrayMap<Integer, String>();
+    }
+
+    @Test
+    public void removeFromList() throws Exception {
+        map.put(10, "10");
+        map.put(20, "20");
+        map.put(20, "21");
+        map.put(20, "22");
+        map.put(30, "30");
+        map.put(40, "40");
+        assertThat(map.get(20)).containsOnly("20", "21", "22");
+        map.removeFromList(20, "21");
+        assertThat(map.get(20)).containsOnly("20", "22");
+    }
+
     @Test
     public void addItemTest() throws Exception {
-        MultiArrayMap<Integer, String> map = new MultiArrayMap<Integer, String>();
         map.put(10, "10");
         map.put(20, "20");
         map.put(30, "30");
@@ -40,7 +62,6 @@ public class MultiArrayMapTest {
 
     @Test
     public void addItemWithSameKeyTest() throws Exception {
-        MultiArrayMap<Integer, String> map = new MultiArrayMap<Integer, String>();
         map.put(10, "10");
         map.put(10, "10.1");
         map.put(10, "10.2");
@@ -64,7 +85,6 @@ public class MultiArrayMapTest {
 
     @Test
     public void mergeTest() throws Exception {
-        MultiArrayMap<Integer, String> map = new MultiArrayMap<Integer, String>();
         map.put(10, "10");
         map.put(20, "20");
         map.put(30, "30");
@@ -84,7 +104,6 @@ public class MultiArrayMapTest {
 
     @Test
     public void removeItemTest() throws Exception {
-        MultiArrayMap<Integer, String> map = new MultiArrayMap<Integer, String>();
         map.put(10, "10");
         map.put(10, "10.1");
         map.put(10, "10.2");
@@ -105,7 +124,6 @@ public class MultiArrayMapTest {
 
     @Test
     public void valueNotPresentTest() throws Exception {
-        MultiArrayMap<Integer, String> map = new MultiArrayMap<Integer, String>();
         map.put(10, "10");
 
         Assert.assertTrue("The map doesn't contains the newer values !", map.get(20) == null);
