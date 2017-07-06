@@ -1,5 +1,5 @@
 /*
- *    Copyright 2014 - 2016 Yannick Watier
+ *    Copyright 2014 - 2017 Yannick Watier
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ public class MultiArrayMap<K, V> {
     private final Map<K, List<V>> containerMap;
 
     public MultiArrayMap() {
-        containerMap = new HashMap<K, List<V>>();
+        containerMap = new HashMap<>();
     }
 
     public int size() {
@@ -75,7 +75,7 @@ public class MultiArrayMap<K, V> {
         List<V> associationList;
 
         if (!containerMap.containsKey(key)) {
-            associationList = new ArrayList<V>();
+            associationList = new ArrayList<>();
             containerMap.put(key, associationList);
         } else {
             associationList = containerMap.get(key);
@@ -140,7 +140,7 @@ public class MultiArrayMap<K, V> {
      * @return An unmodifiable Set containing all the values
      */
     public Collection<V> values() {
-        Set<V> values = new HashSet<V>();
+        Set<V> values = new HashSet<>();
 
         for (List<V> value : containerMap.values()) {
             values.addAll(value);
