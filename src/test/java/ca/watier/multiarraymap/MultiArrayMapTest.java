@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package org.multiarraymap;
+package ca.watier.multiarraymap;
 
 import org.junit.Assert;
 import org.junit.Before;
